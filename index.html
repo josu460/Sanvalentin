@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Letter</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+/* Fondo corazones */
+body::before {
+    content: "❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤ ❤";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 20px;
+    color: #ff9aa2;
+    text-align: center;
+    opacity: 0.15;
+    line-height: 40px;
+    pointer-events: none;
+}
+
+.letter-window {
+    background: #ffd6d6;
+    border: 6px solid #ff8fa3;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 8px 8px 0 #ff8fa3;
+    position: relative;
+}
+
+h1 {
+    margin: 0 0 20px 0;
+    color: #b33939;
+}
+
+.cat {
+    font-size: 60px;
+    margin: 10px 0;
+}
+
+.buttons {
+    position: relative;
+    width: 300px;
+    height: 140px;
+    margin: 20px auto 0 auto;
+}
+
+button {
+    width: 120px;
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.yes-btn {
+    background: #ff6b81;
+    color: white;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.no-btn {
+    background: #f1f2f6;
+    color: #2f3542;
+    position: absolute;
+    left: 180px;
+    top: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.success {
+    font-size: 24px;
+    color: #e84393;
+    margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="letter-window">
+    <h1>¿Quieres ser mi San Valentín??? 💌</h1>
+    <div class="cat">❤️ Meeeel ❤️</div>
+
+    <div class="buttons" id="buttonContainer">
+        <button class="yes-btn" id="yesBtn">SII</button>
+        <button class="no-btn" id="noBtn">NO</button>
+    </div>
+
+    <div class="success hidden" id="successMessage">
+        Sabía que ibas a escoger esta opción 😐💖  
+        A festejar en las mejores pizzas de México 🍕🥰
+    </div>
+</div>
+
+<script>
+let scale = 1;
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const container = document.getElementById("buttonContainer");
+const success = document.getElementById("successMessage");
+
+// Evento universal (mejor que click o touch)
+noBtn.addEventListener("pointerdown", moveAndGrow);
+yesBtn.addEventListener("pointerdown", sayYes);
+
+function moveAndGrow(e) {
+    e.preventDefault();
+
+    // 1️⃣ YES crece
+    scale += 0.25;
+    yesBtn.style.transform = `scale(${scale})`;
+
+    // 2️⃣ NO se mueve dentro del contenedor
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+}
+
+function sayYes() {
+    success.classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
